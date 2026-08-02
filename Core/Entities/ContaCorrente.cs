@@ -3,7 +3,7 @@ using Core.ValueObjects;
 namespace Core.Entities;
 public class ContaCorrente
 {
-    public Guid Id { get; private set; }
+    public Guid Id { get; private init; }
     public string NumeroConta { get; private set; } = string.Empty;
     public Saldo Saldo { get; private set; } = null!;
 

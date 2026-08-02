@@ -10,8 +10,10 @@ public class CpfTests
     [InlineData("  529.982.247-25  ")]
     public void Criar_CpfValido_DeveRetornarInstancia(string valor)
     {
+        // Act
         var cpf = Cpf.Criar(valor);
 
+        // Assert
         Assert.Equal("52998224725", cpf.Numero);
     }
 
@@ -21,6 +23,7 @@ public class CpfTests
     [InlineData(null)]
     public void Criar_ValorVazioOuNulo_DeveLancarArgumentException(string? valor)
     {
+        // Act & Assert
         Assert.Throws<ArgumentException>(() => Cpf.Criar(valor!));
     }
 
@@ -30,6 +33,7 @@ public class CpfTests
     [InlineData("123456789012")]
     public void Criar_QuantidadeDigitosInvalida_DeveLancarArgumentException(string valor)
     {
+        // Act & Assert
         Assert.Throws<ArgumentException>(() => Cpf.Criar(valor));
     }
 
@@ -40,6 +44,7 @@ public class CpfTests
     [InlineData("99999999999")]
     public void Criar_TodosDigitosIguais_DeveLancarArgumentException(string valor)
     {
+        // Act & Assert
         Assert.Throws<ArgumentException>(() => Cpf.Criar(valor));
     }
 
@@ -48,24 +53,29 @@ public class CpfTests
     [InlineData("12345678901")]
     public void Criar_DigitoVerificadorInvalido_DeveLancarArgumentException(string valor)
     {
+        // Act & Assert
         Assert.Throws<ArgumentException>(() => Cpf.Criar(valor));
     }
 
     [Fact]
     public void Criar_DoisCpfsIguais_DevemSerIguaisPorValor()
     {
+        // Arrange & Act
         var cpf1 = Cpf.Criar("52998224725");
         var cpf2 = Cpf.Criar("529.982.247-25");
 
+        // Assert
         Assert.Equal(cpf1, cpf2);
     }
 
     [Fact]
     public void Criar_DoisCpfsDiferentes_NaoDevemSerIguais()
     {
+        // Arrange & Act
         var cpf1 = Cpf.Criar("52998224725");
         var cpf2 = Cpf.Criar("39053344705");
 
+        // Assert
         Assert.NotEqual(cpf1, cpf2);
     }
 }

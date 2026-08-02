@@ -3,7 +3,7 @@ using Core.ValueObjects;
 namespace Core.Entities;
 public class Cliente
 {
-    public Guid Id { get; private set; }
+    public Guid Id { get; private init; }
     public string Nome { get; private set; } = string.Empty;
     public Cpf Cpf { get; private set; } = null!;
     public DateTime DataCriacao { get; private set; }
