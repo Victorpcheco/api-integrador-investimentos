@@ -33,9 +33,9 @@ public class ClienteConfiguration : IEntityTypeConfiguration<Cliente>
         builder.Property(c => c.DataCriacao)
             .IsRequired();
 
-        builder.HasOne(c => c.ContaCorrente)
+        builder.HasOne(c => c.Conta)
             .WithOne(cc => cc.Cliente)
-            .HasForeignKey<ContaCorrente>(cc => cc.ClienteId)
+            .HasForeignKey<Conta>(cc => cc.ClienteId)
             .OnDelete(DeleteBehavior.Cascade);
     }
 }

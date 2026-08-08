@@ -3,6 +3,8 @@ namespace Core.Enums
     public enum TipoTransacao
     {
         Saque,
-        Deposito
+        Deposito,
+        Aporte,
+        Resgate
     }
 }

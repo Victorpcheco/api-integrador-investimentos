@@ -2,7 +2,7 @@ using Core.Entities;
 
 namespace Tests.Entities;
 
-public class ContaCorrenteTests
+public class ContaTests
 {
     private readonly Guid _clienteId = Guid.NewGuid();
     private const string NumeroContaValido = "12345-6";
@@ -11,7 +11,7 @@ public class ContaCorrenteTests
     public void Criar_DadosValidos_DeveRetornarContaComSaldoZerado()
     {
         // Act
-        var conta = ContaCorrente.Criar(NumeroContaValido, _clienteId);
+        var conta = Conta.Criar(NumeroContaValido, _clienteId);
 
         // Assert
         Assert.NotEqual(Guid.Empty, conta.Id);
@@ -27,14 +27,14 @@ public class ContaCorrenteTests
     public void Criar_NumeroContaVazioOuNulo_DeveLancarArgumentException(string? numeroConta)
     {
         // Act & Assert
-        Assert.Throws<ArgumentException>(() => ContaCorrente.Criar(numeroConta!, _clienteId));
+        Assert.Throws<ArgumentException>(() => Conta.Criar(numeroConta!, _clienteId));
     }
 
     [Fact]
     public void Creditar_ValorPositivo_DeveAumentarSaldo()
     {
         // Arrange
-        var conta = ContaCorrente.Criar(NumeroContaValido, _clienteId);
+        var conta = Conta.Criar(NumeroContaValido, _clienteId);
 
         // Act
         conta.Creditar(200m);
@@ -47,7 +47,7 @@ public class ContaCorrenteTests
     public void Creditar_MultiplosCreditos_DeveAcumularSaldo()
     {
         // Arrange
-        var conta = ContaCorrente.Criar(NumeroContaValido, _clienteId);
+        var conta = Conta.Criar(NumeroContaValido, _clienteId);
 
         // Act
         conta.Creditar(100m);
@@ -61,7 +61,7 @@ public class ContaCorrenteTests
     public void Creditar_ValorZero_DeveLancarArgumentException()
     {
         // Arrange
-        var conta = ContaCorrente.Criar(NumeroContaValido, _clienteId);
+        var conta = Conta.Criar(NumeroContaValido, _clienteId);
 
         // Act & Assert
         Assert.Throws<ArgumentException>(() => conta.Creditar(0m));
@@ -71,7 +71,7 @@ public class ContaCorrenteTests
     public void Debitar_ValorValido_DeveDiminuirSaldo()
     {
         // Arrange
-        var conta = ContaCorrente.Criar(NumeroContaValido, _clienteId);
+        var conta = Conta.Criar(NumeroContaValido, _clienteId);
         conta.Creditar(200m);
 
         // Act
@@ -85,7 +85,7 @@ public class ContaCorrenteTests
     public void Debitar_SaldoInsuficiente_DeveLancarInvalidOperationException()
     {
         // Arrange
-        var conta = ContaCorrente.Criar(NumeroContaValido, _clienteId);
+        var conta = Conta.Criar(NumeroContaValido, _clienteId);
         conta.Creditar(50m);
 
         // Act & Assert
@@ -96,7 +96,7 @@ public class ContaCorrenteTests
     public void Debitar_ValorIgualAoSaldo_DeveZerarSaldo()
     {
         // Arrange
-        var conta = ContaCorrente.Criar(NumeroContaValido, _clienteId);
+        var conta = Conta.Criar(NumeroContaValido, _clienteId);
         conta.Creditar(100m);
 
         // Act
@@ -110,7 +110,7 @@ public class ContaCorrenteTests
     public void CreditarEDebitar_FluxoCompleto_DeveCalcularSaldoCorretamente()
     {
         // Arrange
-        var conta = ContaCorrente.Criar(NumeroContaValido, _clienteId);
+        var conta = Conta.Criar(NumeroContaValido, _clienteId);
 
         // Act
         conta.Creditar(500m);

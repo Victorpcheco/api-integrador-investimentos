@@ -1,5 +1,6 @@
 using Core.Interfaces;
 using Infrastructure.Persistence;
+using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,6 +18,10 @@ public static class PersistenceExtension
             options.UseSqlServer(connectionString));
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+        // Repositories
+        services.AddScoped<IContaRepository, ContaRepository>();
+        services.AddScoped<ITransacaoContaRepository, TransacaoContaRepository>();
 
         return services;
     }

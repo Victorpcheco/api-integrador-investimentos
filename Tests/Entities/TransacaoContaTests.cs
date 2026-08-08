@@ -1,11 +1,12 @@
 using Core.Entities;
 using Core.Enums;
+using System;
 
 namespace Tests.Entities;
 
 public class TransacaoContaTests
 {
-    private readonly Guid _contaCorrenteIdValido = Guid.NewGuid();
+    private readonly Guid _contaIdValido = Guid.NewGuid();
 
     [Fact]
     public void Criar_DadosValidos_DeveRetornarInstanciaCriadaComValoresCorretos()
@@ -15,11 +16,11 @@ public class TransacaoContaTests
         var tipoTransacao = TipoTransacao.Deposito;
 
         // Act
-        var transacao = TransacaoConta.Criar(_contaCorrenteIdValido, valor, tipoTransacao);
+        var transacao = TransacaoConta.Criar(_contaIdValido, valor, tipoTransacao);
 
         // Assert
         Assert.NotEqual(Guid.Empty, transacao.Id);
-        Assert.Equal(_contaCorrenteIdValido, transacao.ContaCorrenteId);
+        Assert.Equal(_contaIdValido, transacao.ContaId);
         Assert.Equal(valor, transacao.Valor.Valor);
         Assert.Equal(tipoTransacao, transacao.TipoTransacao);
         Assert.True(transacao.DataOperacao <= DateTime.UtcNow);
@@ -27,15 +28,18 @@ public class TransacaoContaTests
     }
 
     [Fact]
-    public void Criar_ContaCorrenteIdVazio_DeveLancarArgumentException()
+    public void Criar_ContaIdVazio_DeveLancarArgumentException()
     {
         // Arrange
-        Guid contaCorrenteIdInvalido = Guid.Empty;
+        Guid contaIdInvalido = Guid.Empty;
         decimal valor = 100m;
         var tipoTransacao = TipoTransacao.Saque;
 
-        // Act & Assert
-        Assert.Throws<ArgumentException>(() => TransacaoConta.Criar(contaCorrenteIdInvalido, valor, tipoTransacao));
+        // Act
+        Action act = () => TransacaoConta.Criar(contaIdInvalido, valor, tipoTransacao);
+
+        // Assert
+        Assert.Throws<ArgumentException>(act);
     }
 
     [Theory]
@@ -46,7 +50,10 @@ public class TransacaoContaTests
         // Arrange
         var tipoTransacao = TipoTransacao.Saque;
 
-        // Act & Assert
-        Assert.Throws<ArgumentException>(() => TransacaoConta.Criar(_contaCorrenteIdValido, valorInvalido, tipoTransacao));
+        // Act
+        Action act = () => TransacaoConta.Criar(_contaIdValido, valorInvalido, tipoTransacao);
+
+        // Assert
+        Assert.Throws<ArgumentException>(act);
     }
 }

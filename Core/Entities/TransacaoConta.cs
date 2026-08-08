@@ -6,8 +6,8 @@ namespace Core.Entities;
 public class TransacaoConta
 {
     public Guid Id { get; private init; }
-    public Guid ContaCorrenteId { get; private set; }
-    public ContaCorrente ContaCorrente { get; private set; } = null!;
+    public Guid ContaId { get; private set; }
+    public Conta Conta { get; private set; } = null!;
     
     public ValorTransacao Valor { get; private set; } = null!;
     public TipoTransacao TipoTransacao { get; private set; }
@@ -15,23 +15,23 @@ public class TransacaoConta
 
     private TransacaoConta() { }
 
-    private TransacaoConta(Guid contaCorrenteId, ValorTransacao valor, TipoTransacao tipoTransacao)
+    private TransacaoConta(Guid contaId, ValorTransacao valor, TipoTransacao tipoTransacao)
     {
         Id = Guid.NewGuid();
-        ContaCorrenteId = contaCorrenteId;
+        ContaId = contaId;
         Valor = valor;
         TipoTransacao = tipoTransacao;
         DataOperacao = DateTime.UtcNow;
     }
 
-    public static TransacaoConta Criar(Guid contaCorrenteId, decimal valor, TipoTransacao tipoTransacao)
+    public static TransacaoConta Criar(Guid contaId, decimal valor, TipoTransacao tipoTransacao)
     {
-        if (contaCorrenteId == Guid.Empty)
-            throw new ArgumentException("Id da conta corrente inválido.", nameof(contaCorrenteId));
+        if (contaId == Guid.Empty)
+            throw new ArgumentException("Id da conta corrente inválido.", nameof(contaId));
 
         var valorValido = ValorTransacao.Criar(valor);
 
-        return new TransacaoConta(contaCorrenteId, valorValido, tipoTransacao);
+        return new TransacaoConta(contaId, valorValido, tipoTransacao);
     }
 }
 

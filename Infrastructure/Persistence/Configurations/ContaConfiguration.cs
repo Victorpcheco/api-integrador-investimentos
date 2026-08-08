@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.Persistence.Configurations;
 
-public class ContaCorrenteConfiguration : IEntityTypeConfiguration<ContaCorrente>
+public class ContaConfiguration : IEntityTypeConfiguration<Conta>
 {
-    public void Configure(EntityTypeBuilder<ContaCorrente> builder)
+    public void Configure(EntityTypeBuilder<Conta> builder)
     {
-        builder.ToTable("ContasCorrentes");
+        builder.ToTable("Contas");
 
         builder.HasKey(cc => cc.Id);
 

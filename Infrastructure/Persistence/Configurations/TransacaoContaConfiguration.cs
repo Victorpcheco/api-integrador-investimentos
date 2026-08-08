@@ -30,12 +30,12 @@ public class TransacaoContaConfiguration : IEntityTypeConfiguration<TransacaoCon
         builder.Property(tc => tc.DataOperacao)
             .IsRequired();
 
-        builder.Property(tc => tc.ContaCorrenteId)
+        builder.Property(tc => tc.ContaId)
             .IsRequired();
             
-        builder.HasOne(tc => tc.ContaCorrente)
+        builder.HasOne(tc => tc.Conta)
             .WithMany()
-            .HasForeignKey(tc => tc.ContaCorrenteId)
+            .HasForeignKey(tc => tc.ContaId)
             .OnDelete(DeleteBehavior.Cascade);
     }
 }

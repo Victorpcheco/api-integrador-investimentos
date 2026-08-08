@@ -8,7 +8,7 @@ public class Cliente
     public Cpf Cpf { get; private set; } = null!;
     public DateTime DataCriacao { get; private set; }
 
-    public ContaCorrente ContaCorrente { get; private set; } = null!;
+    public Conta Conta { get; private set; } = null!;
 
     private Cliente() { }
 
